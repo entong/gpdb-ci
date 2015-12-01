@@ -1,0 +1,11 @@
+jobs:
+- name: hello_world
+  plan:
+    - task: echo_hello
+      config: 
+        platform: linux
+        image: docker:///busybox
+        run:
+          path: /bin/echo
+          args: 
+            - hello world
