@@ -1,3 +1,11 @@
+resources:
+- name: gpos_src
+  type: git
+  source:
+    uri: git@github.com:greenplum-db/gpos.git
+    branch: master
+    private_key: {{private_key}}
+
 jobs:
 - name: hello_world
   plan:
@@ -9,3 +17,10 @@ jobs:
           path: /bin/echo
           args: 
             - hello world
+
+- name: gpos
+  plan:
+    - get: gpos_src
+      trigger: true
+    - task: build_debug_centos5
+      file: gpos_src/concourse/build_debug_centos5.yml
