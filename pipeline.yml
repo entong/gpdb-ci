@@ -5,6 +5,15 @@ resources:
     uri: git@github.com:greenplum-db/gpos.git
     branch: master
     private_key: {{private_key}}
+- name: xerces_patch
+  type: git
+  source:
+    uri: git@github.com:Pivotal-DataFabric/orca-concourse-temp
+    branch: master
+    private_key: {{private_key}}
+    paths:
+    - optimizer/patches/xerces-c-gpdb.patch
+    - optimizer/concourse/xerces-c
 
 jobs:
 - name: gpos
@@ -16,3 +25,9 @@ jobs:
         file: gpos_src/concourse/build_debug_centos5.yml
       - task: build_release_centos5
         file: gpos_src/concourse/build_release_centos5.yml
+- name: gp_xerces
+  plan:
+    - get: xerces_patch
+      trigger: true
+    - task: build_gp_xerces
+      file: xerces_patch/optimizer/concourse/xerces-c/build_xerces_centos5.yml
