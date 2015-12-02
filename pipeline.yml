@@ -7,17 +7,6 @@ resources:
     private_key: {{private_key}}
 
 jobs:
-- name: hello_world
-  plan:
-    - task: echo_hello
-      config: 
-        platform: linux
-        image: docker:///busybox
-        run:
-          path: /bin/echo
-          args: 
-            - hello world
-
 - name: gpos
   plan:
     - get: gpos_src
