@@ -29,5 +29,5 @@ jobs:
   plan:
     - get: xerces_patch
       trigger: true
-    - task: build_gp_xerces
+    - task: build_gp_xerces_centos5
       file: xerces_patch/optimizer/concourse/xerces-c/build_xerces_centos5.yml
