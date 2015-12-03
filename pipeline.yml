@@ -20,14 +20,11 @@ jobs:
   plan:
     - get: gpos_src
       trigger: true
-    - aggregate:
-      - task: build_debug_centos5
-        file: gpos_src/concourse/build_debug_centos5.yml
-      - task: build_release_centos5
-        file: gpos_src/concourse/build_release_centos5.yml
+    - task: build_centos5_debug
+      file: gpos_src/concourse/build_debug_centos5.yml
 - name: gp_xerces
   plan:
     - get: xerces_patch
       trigger: true
-    - task: build_gp_xerces_centos5
+    - task: build_centos5_debug
       file: xerces_patch/optimizer/concourse/xerces-c/build_xerces_centos5.yml
