@@ -21,7 +21,7 @@ jobs:
     - get: gpos_src
       trigger: true
     - task: build_centos5_debug
-      file: gpos_src/concourse/build_debug_centos5.yml
+      file: gpos_src/concourse/build_centos5_debug.yml
 - name: gp_xerces
   plan:
     - get: xerces_patch
