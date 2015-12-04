@@ -14,6 +14,7 @@ resources:
     paths:
     - optimizer/patches/xerces-c-gpdb.patch
     - optimizer/concourse/xerces-c
+    - optimizer/concourse/package_tarball.bash
 - name: orca_src
   type: git
   source:
@@ -55,6 +56,11 @@ jobs:
       trigger: true
     - task: build_centos5
       file: xerces_patch/optimizer/concourse/xerces-c/build_xerces_centos5.yml
+    - task: package_tarball_centos5
+      file: xerces_patch/optimizer/concourse/xerces-c/package_tarball_centos5.yml
+    - put: bin_xerces_centos5
+      params:
+        from: package_tarball_centos5/bin_xerces_centos5.tar.gz
 - name: orca
   plan:
     - aggregate:
@@ -62,5 +68,11 @@ jobs:
         trigger: true
         passed:
         - gpos
+      - get: bin_xerces_centos5
+        trigger: true
+        passed:
+        - gp_xerces
       - get: orca_src
         trigger: true
+    - task: build_and_test_centos5_debug
+      file: orca_src/optimizer/concourse/build_and_test_centos5_debug.yml
