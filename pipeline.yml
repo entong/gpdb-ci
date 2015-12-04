@@ -37,6 +37,14 @@ resources:
     access_key_id: {{s3_access_key_id}}
     secret_access_key: {{s3_secret_access_key}}
     versioned_file: bin_gpos_centos5_debug.tar.gz
+- name: bin_orca_centos5_debug
+  type: s3
+  source:
+    region_name: us-west-2
+    bucket: gpdb-concourse
+    access_key_id: {{s3_access_key_id}}
+    secret_access_key: {{s3_secret_access_key}}
+    versioned_file: bin_orca_centos5_debug.tar.gz
 
 jobs:
 - name: gpos
@@ -76,3 +84,8 @@ jobs:
         trigger: true
     - task: build_and_test_centos5_debug
       file: orca_src/optimizer/concourse/build_and_test_centos5_debug.yml
+    - task: package_tarball_centos5_debug
+      file: orca_src/optimizer/concourse/package_tarball_centos5_debug.yml
+    - put: bin_orca_centos5_debug
+      params:
+        from: package_tarball_centos5_debug/bin_orca_centos5_debug.tar.gz
