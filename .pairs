@@ -1,0 +1,12 @@
+pairs:
+  jz: Jesse Zhang; jzhang
+  xz: Xin Zhang; xzhang
+  es: Entong Shen; eshen
+  cc: Craig Chasseur
+email:
+  prefix: pair
+  domain: pivotal.io
+  no_solo_prefix: true
+email_addresses:
+  cc: spoonboy42@gmail.com
+global: false
